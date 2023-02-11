@@ -1,28 +1,32 @@
 import './App.css'
-import {useState} from "react";
-import {Money} from "./Money";
+import {MouseEvent, useState} from "react";
+import {FullInput} from "./component/FullInput";
+import {Input} from "./component/Input";
+import {Button} from "./component/Button";
 
-export type MoneyType={
-    banknots:string
-    value:number
-    number:string
-}
 function App() {
-    const [money, setMoney] = useState([
-        {banknots: 'Dollars', value: 100, number: ' a1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' z1234567890'},
-        {banknots: 'RUBLS', value: 100, number: ' w1234567890'},
-        {banknots: 'Dollars', value: 100, number: ' e1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' c1234567890'},
-        {banknots: 'RUBLS', value: 100, number: ' r1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' x1234567890'},
-        {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
+    const [message, setMessage] = useState([
+        {message: "message1"},
+        {message: "message2"},
+        {message: "message3"},
     ])
-
-
-
+    let [title, setTitle] = useState('')
+    const addNewTitle = () => {
+        setMessage([{message: title}, ...message])
+        setTitle('')
+    }
     return (
-        <Money bank={money}/>
+        <div className={"App"}>
+            {/*<FullInput addNewTitle={addNewTitle}/>*/}
+            <Input setTitle={setTitle} title={title}/>
+            <Button name={'+'} callBack={addNewTitle}/>
+            {message.map((e, i) => {
+                return (
+                    <div key={i}>{e.message}</div>
+                )
+            })
+            }
+        </div>
     )
 }
 
